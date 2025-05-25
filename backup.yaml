@@ -1,0 +1,306 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2025-05-24T10:38:34Z"
+    generateName: go-web-app-58c67bf4f9-
+    labels:
+      app: go-web-app
+      pod-template-hash: 58c67bf4f9
+    name: go-web-app-58c67bf4f9-64mrb
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: go-web-app-58c67bf4f9
+      uid: f40e35d6-fc0f-4d13-9b18-b1ce7ffba110
+    resourceVersion: "3225"
+    uid: 0c3de6ed-bf6d-417f-89d1-8f740b2a13be
+  spec:
+    containers:
+    - image: umarsayu/go-web-app:v1
+      imagePullPolicy: IfNotPresent
+      name: go-web-app
+      ports:
+      - containerPort: 8080
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-lltc2
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-26-187.ec2.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-lltc2
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-05-24T10:38:36Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-05-24T10:38:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-05-24T10:38:36Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-05-24T10:38:36Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-05-24T10:38:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://8a843f2b4ffcf86d6d92b048af99936ca4f89844b4859198236c7bf0d3678fb0
+      image: docker.io/umarsayu/go-web-app:v1
+      imageID: docker.io/umarsayu/go-web-app@sha256:1ad6fe66b9dedc9b49880657190247206cfad70a4cff59ca6b469e3a4880d932
+      lastState: {}
+      name: go-web-app
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-05-24T10:38:35Z"
+    hostIP: 192.168.26.187
+    hostIPs:
+    - ip: 192.168.26.187
+    phase: Running
+    podIP: 192.168.23.40
+    podIPs:
+    - ip: 192.168.23.40
+    qosClass: BestEffort
+    startTime: "2025-05-24T10:38:34Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"go-web-app"},"name":"go-web-app","namespace":"default"},"spec":{"ports":[{"port":80,"protocol":"TCP","targetPort":8080}],"selector":{"app":"go-web-app"},"type":"ClusterIP"}}
+    creationTimestamp: "2025-05-24T10:42:37Z"
+    labels:
+      app: go-web-app
+    name: go-web-app
+    namespace: default
+    resourceVersion: "4976"
+    uid: c70b3928-471a-4f3b-b937-11cfd67b96fa
+  spec:
+    clusterIP: 10.100.148.196
+    clusterIPs:
+    - 10.100.148.196
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 30766
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: go-web-app
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2025-05-24T10:21:57Z"
+    labels:
+      component: apiserver
+      provider: kubernetes
+    name: kubernetes
+    namespace: default
+    resourceVersion: "196"
+    uid: 4de1ab5a-53d8-4e6a-bc43-e9f33b9ffc62
+  spec:
+    clusterIP: 10.100.0.1
+    clusterIPs:
+    - 10.100.0.1
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"go-web-app"},"name":"go-web-app","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"go-web-app"}},"template":{"metadata":{"labels":{"app":"go-web-app"}},"spec":{"containers":[{"image":"umarsayu/go-web-app:v1","name":"go-web-app","ports":[{"containerPort":8080}]}]}}}}
+    creationTimestamp: "2025-05-24T10:38:34Z"
+    generation: 1
+    labels:
+      app: go-web-app
+    name: go-web-app
+    namespace: default
+    resourceVersion: "3227"
+    uid: 56af585d-f34a-4e51-a61d-d737517d0054
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: go-web-app
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: go-web-app
+      spec:
+        containers:
+        - image: umarsayu/go-web-app:v1
+          imagePullPolicy: IfNotPresent
+          name: go-web-app
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-05-24T10:38:36Z"
+      lastUpdateTime: "2025-05-24T10:38:36Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-05-24T10:38:34Z"
+      lastUpdateTime: "2025-05-24T10:38:36Z"
+      message: ReplicaSet "go-web-app-58c67bf4f9" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2025-05-24T10:38:34Z"
+    generation: 1
+    labels:
+      app: go-web-app
+      pod-template-hash: 58c67bf4f9
+    name: go-web-app-58c67bf4f9
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: go-web-app
+      uid: 56af585d-f34a-4e51-a61d-d737517d0054
+    resourceVersion: "3226"
+    uid: f40e35d6-fc0f-4d13-9b18-b1ce7ffba110
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: go-web-app
+        pod-template-hash: 58c67bf4f9
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: go-web-app
+          pod-template-hash: 58c67bf4f9
+      spec:
+        containers:
+        - image: umarsayu/go-web-app:v1
+          imagePullPolicy: IfNotPresent
+          name: go-web-app
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
